@@ -1,0 +1,90 @@
+using System;
+
+namespace Calculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double result = 0;
+            bool exit = false;
+
+            Console.WriteLine("Welcome to the Calculator Program");
+            Console.WriteLine("Enter 'q' at any time to quit");
+
+            while (!exit)
+            {
+                double num1 = 0, num2 = 0;
+                char op = ' ';
+
+                Console.Write("\nEnter the first number: ");
+                if (!double.TryParse(Console.ReadLine(), out num1))
+                {
+                    Console.WriteLine("Invalid input for first number");
+                    continue;
+                }
+
+                Console.Write("Enter the operator (+, -, *, /, %, ^): ");
+                op = char.Parse(Console.ReadLine());
+
+                if (op == 'q')
+                {
+                    exit = true;
+                    continue;
+                }
+
+                Console.Write("Enter the second number: ");
+                if (!double.TryParse(Console.ReadLine(), out num2))
+                {
+                    Console.WriteLine("Invalid input for second number");
+                    continue;
+                }
+
+                try
+                {
+                    switch (op)
+                    {
+                        case '+':
+                            result = num1 + num2;
+                            break;
+                        case '-':
+                            result = num1 - num2;
+                            break;
+                        case '*':
+                            result = num1 * num2;
+                            break;
+                        case '/':
+                            if (num2 == 0)
+                            {
+                                throw new DivideByZeroException();
+                            }
+                            result = num1 / num2;
+                            break;
+                        case '%':
+                            result = num1 % num2;
+                            break;
+                        case '^':
+                            result = Math.Pow(num1, num2);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid operator entered");
+                            continue;
+                    }
+
+                    Console.WriteLine("{0} {1} {2} = {3}", num1, op, num2, result);
+                }
+                catch (DivideByZeroException)
+                {
+                    Console.WriteLine("Division by zero is not allowed");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                }
+            }
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+        }
+    }
+}
