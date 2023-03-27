@@ -1,4 +1,3 @@
-Sure! Here's an example README.md file for your C# project:
 Calculator Program
 
 This is a simple calculator program written in C# that allows you to perform basic arithmetic operations, as well as square, square root, and exponentiation calculations.
